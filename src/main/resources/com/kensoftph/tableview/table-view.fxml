@@ -9,10 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kensoftph.tableview.TableViewController">
    <center>
-      <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="firstName" prefWidth="75.0" text="First name" />
           <TableColumn fx:id="lastName" prefWidth="75.0" text="Last name" />
@@ -33,7 +32,12 @@
                   <TextField fx:id="txtOrigin" promptText="Origin" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#btnInsert" text="Insert Data" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#btnInsert" text="Insert Data" />
+                  <Button mnemonicParsing="false" onAction="#deleteData" text="Delete Data" />
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets bottom="15.0" />

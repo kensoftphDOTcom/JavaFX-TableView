@@ -9,8 +9,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class TableViewController implements Initializable {
@@ -56,6 +58,25 @@ public class TableViewController implements Initializable {
         }
     }
 
+    @FXML
+    private void deleteData(ActionEvent event){
+        TableView.TableViewSelectionModel<Person> selectionModel = table.getSelectionModel();
+        if(selectionModel.isEmpty()){
+            System.out.println("You need select a data before deleting.");
+        }
+
+        ObservableList<Integer> list = selectionModel.getSelectedIndices();
+        Integer[] selectedIndices = new Integer[list.size()];
+        selectedIndices = list.toArray(selectedIndices);
+
+        Arrays.sort(selectedIndices);
+
+        for(int i = selectedIndices.length - 1; i >= 0; i--){
+            selectionModel.clearSelection(selectedIndices[i].intValue());
+            table.getItems().remove(selectedIndices[i].intValue());
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         firstName.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
@@ -63,5 +84,30 @@ public class TableViewController implements Initializable {
         origin.setCellValueFactory(new PropertyValueFactory<Person, String>("origin"));
 
         table.setItems(initialData());
+
+        editData();
+    }
+
+    private void editData(){
+        firstName.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
+        firstName.setOnEditCommit(event ->{
+            Person person = event.getTableView().getItems().get(event.getTablePosition().getRow());
+            person.setFirstName(event.getNewValue());
+            System.out.println(person.getLastName() + "'s Name was updated to "+ event.getNewValue() +" at row "+ (event.getTablePosition().getRow() + 1));
+        });
+
+        lastName.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
+        lastName.setOnEditCommit(event ->{
+            Person person = event.getTableView().getItems().get(event.getTablePosition().getRow());
+            person.setLastName(event.getNewValue());
+            System.out.println(person.getFirstName() + "'s Last Name was updated to "+ event.getNewValue() +" at row "+ (event.getTablePosition().getRow() + 1));
+        });
+
+        origin.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
+        origin.setOnEditCommit(event ->{
+            Person person = event.getTableView().getItems().get(event.getTablePosition().getRow());
+            person.setOrigin(event.getNewValue());
+            System.out.println("Origin was updated to "+ event.getNewValue() +" at row "+ (event.getTablePosition().getRow() + 1));
+        });
     }
 }
