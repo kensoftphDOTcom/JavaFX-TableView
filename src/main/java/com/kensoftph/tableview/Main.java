@@ -12,14 +12,14 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("table-view.fxml"));
-        //Scene scene = new Scene(loader.load());
-        //stage.setTitle("JavaFX TableView");
-        //stage.setScene(scene);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("table-view.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setTitle("JavaFX TableView");
+        stage.setScene(scene);
 
 
         // these lines of code here will be creating the tableview without using an FXML file
-        TableView<Person> tableView = new TableView<>(Person.getInitialList());
+        /*TableView<Person> tableView = new TableView<>(Person.getInitialList());
         tableView.getColumns().addAll(Person.getFistNameCol(), Person.getLastNameCol(), Person.getOriginCol());
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -27,7 +27,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(layout, 400, 400);
         stage.setScene(scene);
-        stage.setTitle("TableView in JavaFX");
+        stage.setTitle("TableView in JavaFX");*/
         // end
 
         stage.show();
